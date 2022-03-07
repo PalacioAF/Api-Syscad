@@ -3,11 +3,10 @@ const jwt=require('jsonwebtoken');
 require('dotenv').config({path:'local.env'});
 
 exports.login= async (req,res)=>{
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
         try {
             const{legajo,password}=req.body;
-
-            const browser = await puppeteer.launch();
-            const page = await browser.newPage();
         
             await page.goto(`${process.env.SYSACAD}`);
         
@@ -27,8 +26,10 @@ exports.login= async (req,res)=>{
                 }
                 return links
             })
-
-            await browser.close();
+            
+            const username = await page.evaluate( ()=> {
+                return  document.querySelector('.tituloTabla').innerText;
+            })
 
             if(links){
             const token = links[0].split('-');
@@ -47,13 +48,15 @@ exports.login= async (req,res)=>{
                     },(error,token)=>{
                         if(error) throw error;
                         //Mensaje
-                        res.json({msg:'OK',token});
+                        res.json({msg:'OK',success:true , username, token});
                     }
                 )
             }
         } catch (error) {
             console.log(error);
             res.status(500).json({msg:'Hubo un error'});
+        } finally{
+            await browser.close();
         }
 
 }
