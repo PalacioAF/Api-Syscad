@@ -28,10 +28,6 @@ app.use('/api/correlatividadexamen',require('./routes/correlatividadExamen'));
 app.use('/api/materiasexamen',require('./routes/materiasExamen'));
 app.use('/api/materiascursado',require('./routes/materiasCursado'));
 
-app.use('/api/hello', function(req, res, next) {
-  res.json({msg:'hello'});
-});
-
 app.use((err, req, res, next) => {
     if (err && err.error && err.error.isJoi) {
       res.status(400).json({
