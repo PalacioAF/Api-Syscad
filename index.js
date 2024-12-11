@@ -27,6 +27,7 @@ app.use('/api/correlatividadcursado',require('./routes/correlatividadCursado'));
 app.use('/api/correlatividadexamen',require('./routes/correlatividadExamen'));
 app.use('/api/materiasexamen',require('./routes/materiasExamen'));
 app.use('/api/materiascursado',require('./routes/materiasCursado'));
+app.use("/api/notificaciones", require("./routes/notificaciones"));
 
 app.use((err, req, res, next) => {
     if (err && err.error && err.error.isJoi) {
