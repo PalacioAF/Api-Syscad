@@ -6,7 +6,7 @@ exports.getNotificaciones = async (req, res) => {
             {},
             { title: 1, description: 1, _id: 0 }
           );
-        res.json({ notifications });
+        res.json({msg:'OK',res:notifications});
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error');
