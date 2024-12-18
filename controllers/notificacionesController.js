@@ -2,10 +2,10 @@ const Notification = require('../models/Notificacion');
 
 exports.getNotificaciones = async (req, res) => {
     try {
-        const notifications = await await Notification.find(
-            {},
-            { title: 1, description: 1, _id: 0 }
-          );
+        const notifications = await Notification.find(
+          { state: true },
+          { title: 1, description: 1, _id: 0 }
+        );
         res.json({msg:'OK',res:notifications});
     } catch (error) {
         console.log(error);
